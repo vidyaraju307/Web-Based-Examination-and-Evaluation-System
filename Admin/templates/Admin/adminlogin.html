@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #edf1f9;
+        }
+
+        .login-container {
+            width: 90%;
+            max-width: 420px;
+            background: white;
+            padding: 40px 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+        }
+
+        .icon {
+            width: 65px;
+            height: 65px;
+            background: #e8edff;
+            color: #405bc0;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            margin: 0 auto 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1c2b49;
+            font-size: 27px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7a8497;
+            font-size: 14px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34415a;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d8deea;
+            border-radius: 7px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #405bc0;
+            box-shadow: 0 0 0 3px #405bc01a;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #405bc0;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        button:hover {
+            background: #293f92;
+        }
+
+        .footer {
+            text-align: center;
+            color: #8993a5;
+            font-size: 12px;
+            margin-top: 25px;
+        }
+
+        .error {
+            color: #d93025;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="icon">🔐</div>
+
+        <h1>Admin Login</h1>
+
+        <p class="subtitle">
+            Web Based Examination and Evaluation System
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="error">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+
+            <label for="email">Admin Email</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter admin email"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter password"
+                required
+            >
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p class="footer">
+            © 2026 Examination and Evaluation System
+        </p>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6fb;
+            color: #263248;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #18243e;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 25px 18px;
+        }
+
+        .sidebar h2 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar p {
+            font-size: 12px;
+            color: #aebbd2;
+            margin-bottom: 35px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #dce5f5;
+            text-decoration: none;
+            padding: 14px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #394e79;
+            color: white;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .topbar h1 {
+            font-size: 27px;
+        }
+
+        .admin-profile {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px #00000008;
+            font-size: 14px;
+        }
+
+        .welcome {
+            background: linear-gradient(120deg, #344e91, #647fe0);
+            color: white;
+            padding: 28px;
+            border-radius: 14px;
+            margin-bottom: 28px;
+        }
+
+        .welcome h2 {
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #e7ecff;
+            line-height: 1.6;
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000008;
+            border: 1px solid #263d72;
+        }
+
+        .stat-card .icon {
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            color: #718096;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .stat-card h2 {
+            font-size: 28px;
+            color: #263d72;
+        }
+
+        .management {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .manage-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #263d72;
+            box-shadow: 0 3px 12px #00000008;
+        }
+
+        .manage-card h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .manage-card p {
+            color: #778399;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #405bc0;
+            color: white;
+            text-decoration: none;
+            padding: 11px 17px;
+            border-radius: 7px;
+            font-size: 13px;
+        }
+
+        .btn:hover {
+            background: #293f92;
+        }
+
+        footer {
+            text-align: center;
+            color: #8993a5;
+            margin-top: 35px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 1000px) {
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 650px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .sidebar p {
+                margin-bottom: 15px;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 18px;
+            }
+
+            .management,
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar h1 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>ExamPortal</h2>
+        <p>Examination Management System</p>
+
+        <a href="#" class="active">🏠 Dashboard</a>
+        <a href="#">👨‍🎓 Students</a>
+        <a href="#">👩‍🏫 Teachers</a>
+        <a href="#">📚 Subjects</a>
+        <a href="#">📝 Examinations</a>
+        <a href="#">📊 Results</a>
+        <a href="#">⚙️ Settings</a>
+        <a href="#">🚪 Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <div class="topbar">
+            <h1>Admin Dashboard</h1>
+            <div class="admin-profile">👤 Administrator</div>
+        </div>
+
+        <div class="welcome">
+            <h2>Welcome, Admin!</h2>
+            <p>
+                Manage students, teachers, subjects, and examinations
+                from one convenient dashboard.
+            </p>
+        </div>
+
+        <!-- Statistics -->
+        <h2 class="section-title">Overview</h2>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="icon">🎓</div>
+                <h3>Total Students</h3>
+                <h2>--</h2>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">👩‍🏫</div>
+                <h3>Total Teachers</h3>
+                <h2>--</h2>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">📚</div>
+                <h3>Total Subjects</h3>
+                <h2>--</h2>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">📝</div>
+                <h3>Total Examinations</h3>
+                <h2>--</h2>
+            </div>
+        </div>
+
+        <!-- Management Sections -->
+        <h2 class="section-title">Management</h2>
+
+        <div class="management">
+
+            <div class="manage-card">
+                <h3>👨‍🎓 Manage Students</h3>
+                <p>View registered students and manage student accounts.</p>
+                <a href="#" class="btn">View Students</a>
+            </div>
+
+            <div class="manage-card">
+                <h3>👩‍🏫 Manage Teachers</h3>
+                <p>Add teachers and manage their registration details.</p>
+                <a href="#" class="btn">Add Teacher</a>
+            </div>
+
+            <div class="manage-card">
+                <h3>📚 Manage Subjects</h3>
+                <p>Create and manage subjects for different examinations.</p>
+                <a href="#" class="btn">Manage Subjects</a>
+            </div>
+
+            <div class="manage-card">
+                <h3>📝 Manage Examinations</h3>
+                <p>Manage examination details and monitor exam activities.</p>
+                <a href="#" class="btn">Manage Examinations</a>
+            </div>
+
+        </div>
+
+        <footer>
+            Web Based Examination and Evaluation System
+        </footer>
+
+    </div>
+
+</body>
+</html>
+    

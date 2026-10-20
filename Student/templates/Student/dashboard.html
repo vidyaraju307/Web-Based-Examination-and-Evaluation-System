@@ -1,0 +1,1119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | ExamPortal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #090b18;
+            color: #f5f3ff;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Main Layout */
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 245px;
+            background: #0d0f20;
+            border-right: 1px solid #302c50;
+            padding: 25px 18px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: #b6a0ff;
+            margin: 0 10px 35px;
+        }
+
+        .logo span {
+            color: #818cf8;
+        }
+
+        .student-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #17172b;
+            border: 1px solid #302c50;
+            padding: 13px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7c3aed, #6366f1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .student-profile h3 {
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .student-profile p {
+            font-size: 11px;
+            color: #aaa8c5;
+        }
+
+        .menu-title {
+            color: #77758f;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin: 20px 10px 12px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 12px;
+            margin-bottom: 6px;
+            border-radius: 9px;
+            font-size: 13px;
+            color: #b7b5d0;
+            transition: 0.3s;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #292044;
+            color: #c4b5fd;
+        }
+
+        .menu-icon {
+            width: 22px;
+            text-align: center;
+            font-size: 17px;
+        }
+
+        .logout {
+            display: block;
+            margin: 35px 10px 0;
+            color: #fca5a5;
+            font-size: 13px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .topbar h1 {
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+        .topbar p {
+            color: #aaa8c5;
+            font-size: 13px;
+        }
+
+        .notification-btn {
+            width: 43px;
+            height: 43px;
+            border: 1px solid #302c50;
+            border-radius: 10px;
+            background: #17172b;
+            color: #c4b5fd;
+            font-size: 19px;
+            cursor: pointer;
+        }
+
+        /* Welcome Banner */
+        .welcome {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 28px;
+            border: 1px solid #39305d;
+            border-radius: 15px;
+            background: linear-gradient(110deg, #21183f, #14213d);
+            margin-bottom: 28px;
+        }
+
+        .welcome small {
+            color: #c4b5fd;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .welcome h2 {
+            font-size: 24px;
+            margin: 12px 0;
+        }
+
+        .welcome p {
+            color: #c4c3df;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .welcome-icon {
+            width: 75px;
+            height: 75px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #292044;
+            border: 1px solid #514178;
+            color: #c4b5fd;
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        /* Summary Cards */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            padding: 20px;
+            background: #121326;
+            border: 1px solid #302c50;
+            border-radius: 13px;
+        }
+
+        .stat-card .icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #292044;
+            color: #c4b5fd;
+            border-radius: 10px;
+            font-size: 19px;
+            margin-bottom: 17px;
+        }
+
+        .stat-card h3 {
+            font-size: 27px;
+            margin-bottom: 6px;
+        }
+
+        .stat-card p {
+            color: #aaa8c5;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* Section Headings */
+        .section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 30px 0 17px;
+        }
+
+        .section-heading h2 {
+            font-size: 17px;
+        }
+
+        .section-heading a {
+            color: #b6a0ff;
+            font-size: 12px;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(250px, 0.8fr);
+            gap: 20px;
+        }
+
+        .panel {
+            background: #121326;
+            border: 1px solid #302c50;
+            border-radius: 13px;
+            padding: 20px;
+            min-width: 0;
+        }
+
+        .panel h3 {
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .panel-description {
+            font-size: 11px;
+            color: #aaa8c5;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        /* Exam List */
+        .exam {
+            padding: 16px 0;
+            border-top: 1px solid #292744;
+        }
+
+        .exam:first-of-type {
+            border-top: none;
+        }
+
+        .exam-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .exam h4 {
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .exam p {
+            color: #aaa8c5;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 9px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .upcoming {
+            background: #292044;
+            color: #c4b5fd;
+        }
+
+        .pending {
+            background: #332a18;
+            color: #fcd34d;
+        }
+
+        .published {
+            background: #173327;
+            color: #86efac;
+        }
+
+        .exam-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 9px 12px;
+            background: #292044;
+            border: 1px solid #514178;
+            border-radius: 7px;
+            color: #d8ccff;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .exam-btn:hover {
+            background: #382b60;
+        }
+
+        /* Notifications */
+        .notification {
+            display: flex;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid #292744;
+        }
+
+        .notification:last-child {
+            border-bottom: none;
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            background: #a78bfa;
+            border-radius: 50%;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        .notification h4 {
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .notification p {
+            color: #aaa8c5;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        /* Results Table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 400px;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            padding: 13px 10px;
+            color: #8e8ba9;
+            font-size: 10px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #302c50;
+        }
+
+        td {
+            padding: 15px 10px;
+            font-size: 12px;
+            color: #e3e0f5;
+            border-bottom: 1px solid #292744;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .marks {
+            color: #c4b5fd;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            color: #77758f;
+            font-size: 11px;
+            margin-top: 35px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .sidebar {
+                width: 215px;
+            }
+
+            .main-content {
+                padding: 22px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .dashboard {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 18px;
+                border-right: none;
+                border-bottom: 1px solid #302c50;
+            }
+
+            .logo {
+                margin: 0 5px 15px;
+            }
+
+            .student-profile,
+            .menu-title,
+            .logout {
+                display: none;
+            }
+
+            .menu {
+                display: flex;
+                gap: 6px;
+                overflow-x: auto;
+            }
+
+            .menu a {
+                white-space: nowrap;
+                padding: 10px;
+            }
+
+            .main-content {
+                padding: 20px 16px;
+            }
+
+            .topbar h1 {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats {
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 14px;
+            }
+
+            .stat-card h3 {
+                font-size: 23px;
+            }
+
+            .welcome {
+                padding: 21px;
+            }
+
+            .welcome h2 {
+                font-size: 20px;
+            }
+
+            .welcome-icon {
+                display: none;
+            }
+
+            .panel {
+                padding: 15px;
+            }
+
+            .section-heading h2 {
+                font-size: 15px;
+            }
+        }
+    
+
+        /* ===== WHITE AND BLUE THEME OVERRIDES ===== */
+        body {
+            background: #f5f9ff;
+            color: #1e293b;
+        }
+        .sidebar {
+            background: #ffffff;
+            border-right-color: #dbeafe;
+        }
+        .logo { color: #2563eb; }
+        .logo span { color: #1d4ed8; }
+        .student-profile {
+            background: #f8fbff;
+            border-color: #dbeafe;
+        }
+        .student-profile h3 { color: #1e293b; }
+        .student-profile p,
+        .menu-title { color: #64748b; }
+        .menu a { color: #475569; }
+        .menu a:hover,
+        .menu a.active {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+        .logout { color: #dc2626; }
+        .main-content { color: #1e293b; }
+        .topbar p { color: #64748b; }
+        .notification-btn {
+            border-color: #dbeafe;
+            background: #ffffff;
+            color: #2563eb;
+        }
+        .notification-btn:hover { background: #eff6ff; }
+        .welcome {
+            border-color: #bfdbfe;
+            background: linear-gradient(110deg, #eff6ff, #f8fbff);
+        }
+        .welcome small { color: #1d4ed8; }
+        .welcome h2 { color: #172033; }
+        .welcome p { color: #526078; }
+        .welcome-icon {
+            background: #ffffff;
+            border-color: #bfdbfe;
+            color: #2563eb;
+        }
+        .stat-card,
+        .panel {
+            background: #ffffff;
+            border-color: #dbeafe;
+            box-shadow: 0 3px 12px rgba(15, 23, 42, 0.035);
+        }
+        .stat-card .icon {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+        .stat-card h3 { color: #1e293b; }
+        .stat-card p,
+        .panel-description { color: #64748b; }
+        .section-heading h2,
+        .panel h3 { color: #1e293b; }
+        .section-heading a { color: #2563eb; }
+        .exam { border-top-color: #dbeafe; }
+        .exam h4 { color: #1e293b; }
+        .exam p { color: #64748b; }
+        .upcoming { background: #eff6ff; color: #1d4ed8; }
+        .pending { background: #fffbeb; color: #92400e; }
+        .published { background: #ecfdf5; color: #047857; }
+        .exam-btn {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+            color: #1d4ed8;
+        }
+        .exam-btn:hover {
+            background: #dbeafe;
+            border-color: #93c5fd;
+        }
+        .notification { border-bottom-color: #dbeafe; }
+        .dot { background: #3b82f6; }
+        .notification h4 { color: #1e293b; }
+        .notification p { color: #64748b; }
+        th {
+            background: #f8fbff;
+            color: #64748b;
+            border-bottom-color: #dbeafe;
+        }
+        td {
+            color: #334155;
+            border-bottom-color: #dbeafe;
+        }
+        .marks { color: #1d4ed8; }
+        footer { color: #94a3b8; }
+
+        /* Blue sidebar and blue navigation options */
+        .sidebar {
+            background: #2563eb;
+            border-right-color: #1d4ed8;
+            color: #ffffff;
+        }
+        .logo,
+        .logo span { color: #ffffff; }
+        .student-profile {
+            background: #1d4ed8;
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+        .student-profile h3 { color: #ffffff; }
+        .student-profile p,
+        .menu-title { color: #dbeafe; }
+        .menu a {
+            color: #eff6ff;
+            border-radius: 8px;
+        }
+        .menu a:hover,
+        .menu a.active {
+            background: #ffffff;
+            color: #1d4ed8;
+        }
+        .logout { color: #ffffff; }
+        .logout:hover { background: #1d4ed8; color: #ffffff; }
+
+        @media (max-width: 760px) {
+            .sidebar {
+                border-bottom-color: #1d4ed8;
+            }
+        }
+
+    
+        /* Blue welcome banner and summary boxes */
+        .welcome {
+            background: linear-gradient(110deg, #2563eb, #1d4ed8) !important;
+            border-color: #1d4ed8 !important;
+            color: #ffffff !important;
+        }
+        .welcome small,
+        .welcome h2,
+        .welcome p { color: #ffffff !important; }
+        .welcome p { opacity: 0.92; }
+        .welcome-icon {
+            background: rgba(255, 255, 255, 0.16) !important;
+            border-color: rgba(255, 255, 255, 0.35) !important;
+            color: #ffffff !important;
+        }
+        .stat-card {
+            background: #2563eb !important;
+            border-color: #2563eb !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.16) !important;
+        }
+        .stat-card .icon {
+            background: rgba(255, 255, 255, 0.18) !important;
+            color: #ffffff !important;
+        }
+        .stat-card h3,
+        .stat-card p { color: #ffffff !important; }
+
+
+        /* Blue content boxes: upcoming exams, notifications, results, history, feedback and profile */
+        .panel {
+            background: #2563eb !important;
+            border-color: #1d4ed8 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.16) !important;
+        }
+        .panel h3,
+        .panel h4,
+        .panel-description,
+        .panel p,
+        .panel .exam h4,
+        .panel .exam p,
+        .panel .notification h4,
+        .panel .notification p {
+            color: #ffffff !important;
+        }
+        .panel-description { opacity: 0.9; }
+        .panel .exam { border-top-color: rgba(255, 255, 255, 0.25) !important; }
+        .panel .notification { border-bottom-color: rgba(255, 255, 255, 0.25) !important; }
+        .panel .dot { background: #ffffff !important; }
+        .panel .exam-btn {
+            background: #ffffff !important;
+            border-color: #ffffff !important;
+            color: #1d4ed8 !important;
+        }
+        .panel .exam-btn:hover { background: #dbeafe !important; }
+        .panel table th {
+            background: #1d4ed8 !important;
+            color: #dbeafe !important;
+            border-bottom-color: rgba(255, 255, 255, 0.25) !important;
+        }
+        .panel table td {
+            color: #ffffff !important;
+            border-bottom-color: rgba(255, 255, 255, 0.2) !important;
+        }
+        .panel .marks { color: #ffffff !important; font-weight: 700; }
+
+
+        /* Dark navy theme for all dashboard boxes */
+        :root {
+            --navy-box: #0b1f3a;
+            --navy-box-light: #102b4e;
+        }
+        .sidebar,
+        .welcome,
+        .stat-card,
+        .panel,
+        .exam,
+        .notification,
+        .profile-card,
+        .history-card,
+        .feedback-card {
+            background: var(--navy-box) !important;
+            color: #ffffff !important;
+            border-color: #1d3b60 !important;
+        }
+        .welcome {
+            background: linear-gradient(135deg, #0b1f3a, #163b66) !important;
+        }
+        .welcome small,
+        .welcome h2,
+        .welcome p,
+        .stat-card h3,
+        .stat-card p,
+        .panel h3,
+        .panel h4,
+        .panel p,
+        .panel-description,
+        .notification h4,
+        .notification p,
+        .exam h4,
+        .exam p,
+        .section-heading h2,
+        .panel table td,
+        .panel .marks {
+            color: #ffffff !important;
+        }
+        .stat-card .icon,
+        .welcome-icon {
+            background: var(--navy-box-light) !important;
+            color: #ffffff !important;
+        }
+        .sidebar a { color: #eaf2ff !important; }
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #ffffff !important;
+            color: #0b1f3a !important;
+        }
+        .panel table th {
+            background: var(--navy-box-light) !important;
+            color: #ffffff !important;
+        }
+        .panel .exam,
+        .panel .notification {
+            border-color: #294968 !important;
+        }
+        .panel .exam-btn {
+            background: #ffffff !important;
+            color: #0b1f3a !important;
+        }
+        .panel .exam-btn:hover {
+            background: #dbeafe !important;
+            color: #0b1f3a !important;
+        }
+
+
+        /* Dark navy student name box and section heading bars */
+        .student-profile {
+            background: #0b1f3a !important;
+            border-color: #1d3b60 !important;
+            color: #ffffff !important;
+        }
+        .student-profile h3,
+        .student-profile p {
+            color: #ffffff !important;
+        }
+        .section-heading h2,
+        #exams .section-heading h2,
+        #notifications .section-heading h2,
+        #results .section-heading h2,
+        #history .section-heading h2,
+        #feedback .section-heading h2,
+        #profile .section-heading h2 {
+            color: #0b1f3a !important;
+        }
+        /* Keep section titles readable in dark navy panels */
+        .panel > h2,
+        .panel > .section-heading h2,
+        #exams h2,
+        #notifications h2,
+        #results h2,
+        #history h2,
+        #feedback h2,
+        #profile h2 {
+            color: #ffffff !important;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">Exam<span>Portal</span></div>
+
+        <div class="student-profile">
+            <div class="avatar">ST</div>
+            <div>
+                <h3>{{std.name}}</h3>
+                <p>Register No: {{std.regnumber}}</p>
+            </div>
+        </div>
+
+        <p class="menu-title">MAIN MENU</p>
+
+        <nav class="menu">
+            <a href="#dashboard" class="active">
+                <span class="menu-icon">⌂</span> Dashboard
+            </a>
+            <a href="#exams">
+                <span class="menu-icon">▣</span> Available Exams
+            </a>
+            <a href="#history">
+                <span class="menu-icon">◷</span> Exam History
+            </a>
+            <a href="#results">
+                <span class="menu-icon">▤</span> My Results
+            </a>
+            <a href="#feedback">
+                <span class="menu-icon">✧</span> Teacher Feedback
+            </a>
+            <a href="#notifications">
+                <span class="menu-icon">♧</span> Notifications
+            </a>
+            <a href="#profile">
+                <span class="menu-icon">◎</span> My Profile
+            </a>
+        </nav>
+
+        <a href="{% url 'logout'%}" class="logout">↪ &nbsp; Logout</a>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="dashboard">
+
+        <header class="topbar">
+            <div>
+                <h1>Student Dashboard</h1>
+                <p id="date">Welcome to your examination portal.</p>
+            </div>
+
+            <button class="notification-btn"
+                onclick="document.getElementById('notifications').scrollIntoView({behavior:'smooth'})"
+                aria-label="Go to notifications">♧</button>
+        </header>
+
+        <!-- Welcome Banner -->
+        <section class="welcome">
+            <div>
+                <small>STUDENT PORTAL</small>
+                <h2>Welcome back,{{std.name}}! 👋</h2>
+                <p>
+                    Manage your examinations, submit your answers,
+                    check your results, and track your academic progress.
+                </p>
+            </div>
+
+            <div class="welcome-icon">✦</div>
+        </section>
+
+        <!-- Summary Cards -->
+        <section class="stats">
+
+            <div class="stat-card">
+                <div class="icon">▣</div>
+                <h3>04</h3>
+                <p>Available Exams</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">✓</div>
+                <h3>06</h3>
+                <p>Submitted Exams</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">◷</div>
+                <h3>02</h3>
+                <p>Pending Results</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">★</div>
+                <h3>05</h3>
+                <p>Published Results</p>
+            </div>
+
+        </section>
+
+        <!-- Exams and Notifications -->
+        <div class="content-grid">
+
+            <section id="exams">
+                <div class="section-heading">
+                    <h2>Upcoming Examinations</h2>
+                    <a href="#history">View history →</a>
+                </div>
+
+                <div class="panel">
+                    <h3>Your Exam Schedule</h3>
+                    <p class="panel-description">
+                        Check the details and instructions before an exam.
+                    </p>
+
+                    <div class="exam">
+                        <div class="exam-top">
+                            <div>
+                                <h4>Python Programming</h4>
+                                <p>Objective + Descriptive</p>
+                                <p>Duration: 60 minutes | Marks: 50</p>
+                            </div>
+                            <span class="status upcoming">Upcoming</span>
+                        </div>
+                        <a href="#exams" class="exam-btn">View Instructions →</a>
+                    </div>
+
+                    <div class="exam">
+                        <div class="exam-top">
+                            <div>
+                                <h4>Database Management Systems</h4>
+                                <p>Objective Examination</p>
+                                <p>Duration: 45 minutes | Marks: 40</p>
+                            </div>
+                            <span class="status upcoming">Upcoming</span>
+                        </div>
+                        <a href="#exams" class="exam-btn">View Instructions →</a>
+                    </div>
+
+                    <div class="exam">
+                        <div class="exam-top">
+                            <div>
+                                <h4>Web Technology</h4>
+                                <p>Descriptive Examination</p>
+                                <p>Duration: 60 minutes | Marks: 50</p>
+                            </div>
+                            <span class="status upcoming">Upcoming</span>
+                        </div>
+                        <a href="#exams" class="exam-btn">View Instructions →</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="notifications">
+                <div class="section-heading">
+                    <h2>Notifications</h2>
+                </div>
+
+                <div class="panel">
+                    <h3>Recent Updates</h3>
+                    <p class="panel-description">
+                        Stay informed about examinations and results.
+                    </p>
+
+                    <div class="notification">
+                        <span class="dot"></span>
+                        <div>
+                            <h4>New Examination</h4>
+                            <p>A new examination has been scheduled.</p>
+                        </div>
+                    </div>
+
+                    <div class="notification">
+                        <span class="dot"></span>
+                        <div>
+                            <h4>Evaluation in Progress</h4>
+                            <p>Your descriptive answers are awaiting teacher review.</p>
+                        </div>
+                    </div>
+
+                    <div class="notification">
+                        <span class="dot"></span>
+                        <div>
+                            <h4>Result Published</h4>
+                            <p>A result is available in your results section.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Recent Results -->
+        <section id="results">
+            <div class="section-heading">
+                <h2>Recent Results</h2>
+            </div>
+
+            <div class="panel table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Exam Type</th>
+                            <th>Marks</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>DBMS</td>
+                            <td>Objective</td>
+                            <td class="marks">35 / 40</td>
+                            <td><span class="status published">Published</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Python Programming</td>
+                            <td>Objective + Descriptive</td>
+                            <td>—</td>
+                            <td><span class="status pending">Pending Evaluation</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Web Technology</td>
+                            <td>Descriptive</td>
+                            <td>—</td>
+                            <td><span class="status pending">Pending Evaluation</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Additional Sections -->
+        <section id="history">
+            <div class="section-heading">
+                <h2>My Exam History</h2>
+            </div>
+            <div class="panel">
+                <p class="panel-description">
+                    Your submitted examinations and submission status will appear here.
+                </p>
+            </div>
+        </section>
+
+        <section id="feedback">
+            <div class="section-heading">
+                <h2>Teacher Feedback</h2>
+            </div>
+            <div class="panel">
+                <p class="panel-description">
+                    Teacher comments and feedback on descriptive answers will appear here
+                    after evaluation and publication.
+                </p>
+            </div>
+        </section>
+
+        <section id="profile">
+            <div class="section-heading">
+                <h2>My Profile</h2>
+            </div>
+            <div class="panel">
+                <p class="panel-description">
+                    Your registered name, register number, email, course, and semester
+                    will be displayed here.
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            &copy; 2026 ExamPortal | Web Based Examination and Evaluation System
+        </footer>
+
+    </main>
+</div>
+
+<script>
+    // Display today's date
+    document.getElementById("date").textContent =
+        "Today: " + new Date().toLocaleDateString("en-IN", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        });
+</script>
+
+</body>
+</html>

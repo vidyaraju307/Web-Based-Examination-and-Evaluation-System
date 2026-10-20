@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration | ExamPortal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f3f6fb;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            height: 76px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            border-bottom: 1px solid #e7ecf3;
+        }
+
+        .brand {
+            font-size: 25px;
+            font-weight: 800;
+            color: #152b4b;
+            letter-spacing: -0.7px;
+        }
+
+        .brand span {
+            color: #3977dc;
+        }
+
+        .nav-label {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .main {
+            width: 92%;
+            max-width: 1120px;
+            margin: 42px auto;
+            display: grid;
+            grid-template-columns: 0.82fr 1.18fr;
+            background: #ffffff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(24, 48, 85, 0.10);
+        }
+
+        /* Left welcome panel */
+        .welcome-panel {
+            background: linear-gradient(145deg, #122744, #214d87);
+            color: #ffffff;
+            padding: 55px 38px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-panel::before {
+            content: "";
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            right: -110px;
+            top: -70px;
+        }
+
+        .welcome-panel::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 50%;
+            right: -65px;
+            top: -40px;
+        }
+
+        .welcome-content,
+        .welcome-bottom {
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: #a9ceff;
+            margin-bottom: 25px;
+        }
+
+        .welcome-panel h1 {
+            font-size: 37px;
+            line-height: 1.25;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-panel h1 span {
+            color: #8dc1ff;
+        }
+
+        .welcome-description {
+            color: #d0def0;
+            font-size: 14px;
+            line-height: 1.9;
+            margin-bottom: 35px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            margin-bottom: 23px;
+        }
+
+        .feature-icon {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.12);
+            font-size: 17px;
+        }
+
+        .feature h3 {
+            font-size: 14px;
+            margin: 2px 0 6px;
+        }
+
+        .feature p {
+            font-size: 12px;
+            line-height: 1.6;
+            color: #c2d5ee;
+        }
+
+        .welcome-bottom {
+            padding-top: 24px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.18);
+            color: #c2d5ee;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        /* Right form panel */
+        .form-panel {
+            padding: 43px 45px;
+        }
+
+        .form-heading {
+            margin-bottom: 31px;
+        }
+
+        .form-heading h2 {
+            color: #152b4b;
+            font-size: 27px;
+            margin-bottom: 9px;
+        }
+
+        .form-heading p {
+            font-size: 13px;
+            color: #78869a;
+            line-height: 1.6;
+        }
+
+        .section-title {
+            font-size: 12px;
+            color: #3977dc;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            padding-bottom: 12px;
+            margin: 27px 0 19px;
+            border-bottom: 1px solid #e9eef5;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px;
+        }
+
+        .form-group {
+            min-width: 0;
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            color: #34445b;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 44px;
+            border: 1px solid #dce4ef;
+            border-radius: 7px;
+            padding: 0 12px;
+            background: #fbfcfe;
+            color: #26364c;
+            font-family: inherit;
+            font-size: 12px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input::placeholder {
+            color: #a2adbc;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #3977dc;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(57, 119, 220, 0.10);
+        }
+
+        .submit-btn {
+            width: 100%;
+            height: 47px;
+            border: none;
+            border-radius: 7px;
+            background: #245fc0;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #194a9c;
+            transform: translateY(-1px);
+        }
+
+        .reset-btn {
+            width: 100%;
+            height: 43px;
+            margin-top: 10px;
+            border: 1px solid #dce4ef;
+            border-radius: 7px;
+            background: #ffffff;
+            color: #53647a;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .reset-btn:hover {
+            background: #f3f6fb;
+        }
+
+        .signin {
+            text-align: center;
+            font-size: 12px;
+            color: #78869a;
+            margin-top: 23px;
+        }
+
+        .signin a {
+            color: #245fc0;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .signin a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 0 15px 25px;
+            color: #8995a7;
+            font-size: 11px;
+        }
+
+        /* Responsive layout */
+        @media (max-width: 850px) {
+            .main {
+                grid-template-columns: 1fr;
+                max-width: 620px;
+            }
+
+            .welcome-panel {
+                padding: 35px 30px;
+            }
+
+            .welcome-panel h1 {
+                font-size: 30px;
+            }
+
+            .welcome-bottom {
+                margin-top: 15px;
+            }
+
+            .form-panel {
+                padding: 35px 30px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .navbar {
+                height: auto;
+                padding: 18px 5%;
+                flex-direction: column;
+                gap: 7px;
+            }
+
+            .brand {
+                font-size: 23px;
+            }
+
+            .nav-label {
+                text-align: center;
+                font-size: 11px;
+            }
+
+            .main {
+                width: 94%;
+                margin: 20px auto;
+                border-radius: 12px;
+            }
+
+            .welcome-panel {
+                padding: 30px 23px;
+            }
+
+            .welcome-panel h1 {
+                font-size: 28px;
+            }
+
+            .form-panel {
+                padding: 28px 21px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .form-heading h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="brand">Exam<span>Portal</span></div>
+        <div class="nav-label">
+            Web Based Examination and Evaluation System
+        </div>
+    </header>
+
+    <main class="main">
+
+        <!-- Left Welcome Panel -->
+        <aside class="welcome-panel">
+
+            <div class="welcome-content">
+                <div class="eyebrow">YOUR ACADEMIC JOURNEY STARTS HERE</div>
+
+                <h1>Learn. Attend.<br><span>Achieve More.</span></h1>
+
+                <p class="welcome-description">
+                    Create your student account to access online examinations,
+                    submit answers, and track your academic performance
+                    through one simple platform.
+                </p>
+
+                <div class="feature">
+                    <div class="feature-icon">✓</div>
+                    <div>
+                        <h3>Online Examinations</h3>
+                        <p>Attend objective and descriptive examinations online.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">▤</div>
+                    <div>
+                        <h3>Easy Result Access</h3>
+                        <p>View your published marks and teacher feedback.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">◈</div>
+                    <div>
+                        <h3>One Student Account</h3>
+                        <p>Access your examination activities in one place.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="welcome-bottom">
+                A smarter way to manage your examinations.<br>
+                Secure access · Simple interface · Easy evaluation
+            </div>
+
+        </aside>
+
+        <!-- Right Registration Form -->
+        <section class="form-panel">
+
+            <div class="form-heading">
+                <h2>Create Account</h2>
+                <p>Enter your details below to register as a student.</p>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <h3 class="section-title">Personal Information</h3>
+
+                <div class="form-group">
+                    <label for="full_name">Full Name</label>
+                    <input type="text" id="full_name" name="name"
+                           placeholder="Enter your full name"
+                           autocomplete="name" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="register_number">Register Number</label>
+                        <input type="text" id="register_number"
+                               name="regnumber"
+                               placeholder="Register number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone_number">Phone Number</label>
+                        <input type="tel" id="phone_number"
+                               name="phone"
+                               placeholder="10-digit number"
+                               pattern="[0-9]{10}"
+                               maxlength="10" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email"
+                           placeholder="Enter your email address"
+                           autocomplete="email" required>
+                </div>
+
+                <h3 class="section-title">Academic Details</h3>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="course">Course</label>
+                        <select id="course" name="course" required>
+                            <option value="">Select course</option>
+                            <option value="MCA">MCA</option>
+                            <option value="BCA">BCA</option>
+                            <option value="BSc">BSc</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="semester">Semester</label>
+                        <select id="semester" name="semester" required>
+                            <option value="">Select semester</option>
+                            <option value="1">Semester 1</option>
+                            <option value="2">Semester 2</option>
+                            <option value="3">Semester 3</option>
+                            <option value="4">Semester 4</option>
+                            <option value="5">Semester 5</option>
+                            <option value="6">Semester 6</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Account Security</h3>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password"
+                               placeholder="Create password"
+                               autocomplete="new-password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" id="confirm_password"
+                               name="confirm_password"
+                               placeholder="Confirm password"
+                               autocomplete="new-password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Create Student Account &rarr;
+                </button>
+
+                <button type="reset" class="reset-btn">
+                    Clear Form
+                </button>
+
+                <p class="signin">
+                    Already registered?
+                    <a href="login.html">Sign in to your account</a>
+                </p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <footer>
+        &copy; 2026 ExamPortal | Web Based Examination and Evaluation System
+    </footer>
+
+</body>
+</html>
