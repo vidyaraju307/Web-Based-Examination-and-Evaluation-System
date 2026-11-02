@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Teacher | ExamPortal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6fb;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 480px;
+            padding: 35px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #18243e;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .teacher-name {
+            color: #263d72;
+            font-weight: bold;
+        }
+
+        button, .cancel-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+        }
+
+        button {
+            background: #dc3545;
+        }
+
+        .cancel-btn {
+            background: #64748b;
+        }
+
+        button:hover {
+            background: #b42323;
+        }
+
+        .cancel-btn:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Delete Teacher</h2>
+
+        <p>
+            Are you sure you want to delete
+            <span class="teacher-name">{{ teacher.name }}</span>?
+            <br>
+            This action cannot be undone.
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <button type="submit">Yes, Delete</button>
+
+            <a href="{% url 'viewtr' %}" class="cancel-btn">
+                Cancel
+            </a>
+        </form>
+
+    </div>
+
+</body>
+</html>

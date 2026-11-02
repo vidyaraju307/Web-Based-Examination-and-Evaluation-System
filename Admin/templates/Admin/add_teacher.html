@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Teacher | ExamPortal</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6fb;
+            color: #18243e;
+        }
+
+        /* Header */
+        .header {
+            background: #18243e;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .brand h2 {
+            color: white;
+            font-size: 23px;
+            margin-bottom: 5px;
+        }
+
+        .brand h2 span {
+            color: #9db8e8;
+        }
+
+        .brand p {
+            color: #cbd5e1;
+            font-size: 12px;
+        }
+
+        .admin {
+            background: #344b78;
+            color: white;
+            padding: 10px 17px;
+            border-radius: 7px;
+            font-size: 13px;
+        }
+
+        /* Main Layout */
+        .main {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            color: #18243e;
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #78849a;
+            font-size: 14px;
+        }
+
+        /* Form Layout */
+        .form-layout {
+            display: grid;
+            grid-template-columns: 0.8fr 1.5fr;
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 25px rgba(24, 36, 62, 0.07);
+            border: 1px solid #dce3ef;
+        }
+
+        /* Left Panel */
+        .left-panel {
+            background: #18243e;
+            color: white;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-panel::before {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 50%;
+            right: -120px;
+            top: 50px;
+        }
+
+        .left-panel::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 50%;
+            left: -90px;
+            bottom: 30px;
+        }
+
+        .left-panel .icon {
+            font-size: 48px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .left-panel h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+
+        .left-panel p {
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .left-panel ul {
+            margin-top: 25px;
+            padding-left: 20px;
+            color: #e2e8f0;
+            font-size: 13px;
+            line-height: 2.3;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Right Form */
+        .right-panel {
+            padding: 38px;
+        }
+
+        .right-panel h2 {
+            color: #18243e;
+            font-size: 23px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #8490a4;
+            font-size: 13px;
+            margin-bottom: 27px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34415b;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #dce3ef;
+            border-radius: 7px;
+            outline: none;
+            font-size: 13px;
+            background: #fafbfe;
+            color: #18243e;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #344b78;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(52, 75, 120, 0.10);
+        }
+
+        input::placeholder {
+            color: #a0aabc;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #18243e;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #344b78;
+            transform: translateY(-2px);
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 22px;
+            color: #344b78;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .back:hover {
+            color: #18243e;
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #8993a5;
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media(max-width: 750px) {
+            .form-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .left-panel {
+                padding: 30px;
+            }
+
+            .right-panel {
+                padding: 28px;
+            }
+        }
+
+        @media(max-width: 500px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .header {
+                padding: 18px;
+            }
+
+            .main {
+                margin: 25px auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SweetAlert Success Message -->
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <script>
+                    Swal.fire({
+                        title: 'Added Successfully!',
+                        text: '{{ message|escapejs }}',
+                        icon: 'success',
+                        confirmButtonColor: '#18243e'
+                    });
+                </script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <!-- Project Header -->
+    <div class="header">
+
+        <div class="brand">
+            <h2>Exam<span>Portal</span></h2>
+            <p>Web Based Examination and Evaluation System</p>
+        </div>
+
+        <div class="admin">
+            👤 Admin Panel
+        </div>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <div class="page-title">
+            <h1>Teacher Management</h1>
+            <p>Add a new teacher to the examination system.</p>
+        </div>
+
+        <div class="form-layout">
+
+            <!-- Left Information Panel -->
+            <div class="left-panel">
+
+                <div class="icon">👩‍🏫</div>
+
+                <h2>Create Teacher Account</h2>
+
+                <p>
+                    Register teachers to manage examinations,
+                    create questions and evaluate student answers
+                    through the examination portal.
+                </p>
+
+                <ul>
+                    <li>Teacher Account Management</li>
+                    <li>Examination Creation</li>
+                    <li>Question Management</li>
+                    <li>Student Answer Evaluation</li>
+                </ul>
+
+            </div>
+
+            <!-- Registration Form -->
+            <div class="right-panel">
+
+                <h2>Teacher Registration</h2>
+
+                <p class="subtitle">
+                    Enter the required details to create a teacher account.
+                </p>
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label>Teacher Name</label>
+                        <input type="text" name="name"
+                               placeholder="Enter teacher name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" name="email"
+                               placeholder="Enter email address" required>
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" name="phone"
+                                   placeholder="Enter phone number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Qualification</label>
+                            <input type="text" name="qualification"
+                                   placeholder="Enter qualification" required>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" name="department"
+                               placeholder="Enter department" required>
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password"
+                                   placeholder="Create password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" name="confirm_password"
+                                   placeholder="Confirm password" required>
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        Create Teacher Account
+                    </button>
+
+                </form>
+
+                <a href="{% url 'admindash' %}" class="back">
+                    ← Back to Admin Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        © 2026 ExamPortal | Web Based Examination and Evaluation System
+    </footer>
+
+</body>
+</html>

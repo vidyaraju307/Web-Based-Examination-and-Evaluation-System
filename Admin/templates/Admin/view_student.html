@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Students | ExamPortal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fc;
+            color: #18243e;
+        }
+
+        .header {
+            background: #18243e;
+            color: white;
+            padding: 22px 35px;
+        }
+
+        .header h2 {
+            font-size: 23px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .top-section h2 {
+            font-size: 22px;
+        }
+
+        .back-btn {
+            background: #18243e;
+            color: white;
+            padding: 10px 17px;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 13px;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            max-width: 350px;
+            padding: 12px 15px;
+            border: 1px solid #dce3ef;
+            border-radius: 7px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #dce3ef;
+            box-shadow: 0 3px 12px #18243e0d;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th {
+            background: #18243e;
+            color: white;
+            padding: 15px 12px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #e5eaf2;
+            font-size: 13px;
+        }
+
+        tr:hover td {
+            background: #f5f7fc;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-size: 12px;
+            margin: 2px;
+        }
+
+        .edit-btn {
+            background: #344b78;
+        }
+
+        .delete-btn {
+            background: #a33b46;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 25px;
+            color: #718096;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #8993a5;
+            font-size: 13px;
+        }
+
+        @media(max-width: 650px) {
+            .container {
+                padding: 18px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+        }
+    
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h2>ExamPortal</h2>
+        <p>Web Based Examination and Evaluation System | Admin Panel</p>
+    </div>
+
+    <div class="container">
+
+        <div class="top-section">
+            <h2>👨‍🎓 Student Management</h2>
+
+            <a href="{% url 'admindash' %}" class="back-btn">
+                Back to Dashboard
+            </a>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput"
+                   placeholder="Search by name or register number..."
+                   onkeyup="searchStudents()">
+        </div>
+
+        <div class="table-container">
+
+            <table id="studentTable">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Register No.</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Course</th>
+                        <th>Semester</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for std in student %}
+
+                    <tr>
+                        <td>{{ std.id }}</td>
+                        <td>{{ std.name }}</td>
+                        <td>{{ std.regnumber }}</td>
+                        <td>{{ std.phone }}</td>
+                        <td>{{ std.email }}</td>
+                        <td>{{ std.course }}</td>
+                        <td>{{ std.semester }}</td>
+                        <td>
+                            <a href="{% url 'editstd' std.id %}" class="edit-btn">Edit</a>
+
+                            <a href="{% url 'deletestd' std.id %}" class="delete-btn">Delete</a>
+                        </td>
+                        
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="8" class="empty">
+                            No student records found.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+                    
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <footer>
+            © 2026 Web Based Examination and Evaluation System
+        </footer>
+
+    </div>
+
+    <script>
+        function searchStudents() {
+            let input = document.getElementById("searchInput")
+                .value.toLowerCase();
+
+            let rows = document.querySelectorAll("#studentTable tbody tr");
+
+            rows.forEach(function(row) {
+                let name = row.cells[1]?.textContent.toLowerCase() || "";
+                let regnumber = row.cells[2]?.textContent.toLowerCase() || "";
+
+                row.style.display =
+                    name.includes(input) || regnumber.includes(input)
+                    ? ""
+                    : "none";
+            });
+        }
+    </script>
+
+</body>
+</html>

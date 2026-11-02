@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Registration
+from Teacher.models import Teacher
 from django.contrib import messages
 def register(request):
     if request.POST:
@@ -22,10 +23,19 @@ def login(request):
         user=Registration.objects.filter(email=email,password=password).first()
         if user:
             request.session['user_id']=user.id
-            messages.success(request,"Logined Successfully")
+            messages.success(request,"Student Logined Successfully")
             return redirect('stddash')
         else:
             messages.error(request,"Invalid Username and Password")
+
+        teacher=Teacher.objects.filter(email=email,password=password).first()
+        if teacher:
+            request.session['teacher_id']=teacher.id
+            messages.success(request,"Teacher Logined Successfully")
+            return redirect('trdash')
+        else:
+            messages.error(request,"Invalid Username and Password")
+            
     return render(request,'Student/login.html')
 def dashboard(request):
     user_id=request.session['user_id']

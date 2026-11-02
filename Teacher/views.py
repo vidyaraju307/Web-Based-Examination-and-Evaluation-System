@@ -1,15 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.contrib import messages
+from .models import Teacher
 
-def login(request):
-    if request.method=="POST":
-            email=request.POST['email']
-            password=request.POST['password']
-            user=Registration.objects.filter(email=email,password=password).first()
-            if user:
-                request.session['user_id']=user.id
-                messages.success(request,"Logined Successfully")
-                return redirect('stddash')
-            else:
-                messages.error(request,"Invalid Username and Password")
-        return render(request,'login.html')
+def tr_dashboard(request):
+    teacher_id=request.session.get('teacher_id')
+    teacher=Teacher.objects.get(id=teacher_id)
+    return render(request,'Teacher/trdashboard.html',{'teacher':teacher})
 

@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+
+    <style>
+  
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f7fc;
+    display: flex;
+    color: #18243e;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #18243e;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 25px 18px;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 22px;
+    color: white;
+}
+
+.sidebar a {
+    display: block;
+    color: #dce5f5;
+    text-decoration: none;
+    padding: 14px;
+    margin-bottom: 9px;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: white;
+    color: #18243e;
+}
+
+/* Main Content */
+.main {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    padding: 30px;
+}
+
+/* Topbar */
+.topbar {
+    background: white;
+    padding: 18px 25px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    border: 1px solid #e1e6ef;
+    box-shadow: 0 3px 12px #18243e0d;
+}
+
+.topbar h2 {
+    color: #18243e;
+    font-size: 22px;
+}
+
+.profile {
+    color: #18243e;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Welcome */
+.welcome {
+    background: #18243e;
+    color: white;
+    padding: 28px;
+    border-radius: 12px;
+    margin-top: 25px;
+}
+
+.welcome h2 {
+    margin-bottom: 10px;
+}
+
+.welcome p {
+    color: #dce5f5;
+    line-height: 1.6;
+}
+
+/* Section */
+.section-title {
+    color: #18243e;
+    margin: 30px 0 18px;
+    font-size: 20px;
+}
+
+/* Statistics */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: white;
+    color: #18243e;
+    padding: 22px;
+    border-radius: 12px;
+    border: 1px solid #18243e;
+    border-left: 4px solid #18243e;
+    box-shadow: 0 3px 12px #18243e0d;
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px #18243e18;
+}
+
+.stat-card .icon {
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+.stat-card h3 {
+    font-size: 14px;
+    font-weight: normal;
+    color: #718096;
+    margin-bottom: 10px;
+}
+
+.stat-card h2 {
+    font-size: 28px;
+    color: #18243e;
+}
+
+/* Management Cards */
+.management {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.manage-card {
+    background: white;
+    padding: 23px;
+    border-radius: 12px;
+    border: 1px solid #18243e;
+     border-left: 4px solid #18243e;
+    box-shadow: 0 3px 12px #18243e0d;
+    transition: 0.3s;
+}
+
+.manage-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px #18243e18;
+}
+
+.manage-card .icon {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.manage-card h3 {
+    color: #18243e;
+    margin-bottom: 10px;
+    font-size: 17px;
+}
+
+.manage-card p {
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+.manage-card a {
+    display: inline-block;
+    background: #18243e;
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 7px;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+.manage-card a:hover {
+    background: #344b78;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    color: #8993a5;
+    margin-top: 35px;
+    font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .management {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    body {
+        display: block;
+    }
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .sidebar h2 {
+        margin-bottom: 20px;
+    }
+
+    .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 18px;
+    }
+
+    .stats,
+    .management {
+        grid-template-columns: 1fr;
+    }
+}
+.teacher-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: white;
+    color: #18243e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.teacher-profile h3 {
+    color: #dce5f5;
+    font-size: 16px;
+}
+
+.teacher-profile p {
+    color: #dce5f5;
+    font-size: 12px;
+    margin-top: 4px;
+}
+ 
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Teacher Panel</h2>
+
+        <div class="teacher-profile">
+    <div class="avatar">TR</div>
+    <div>
+        <h3>{{ teacher.name }}</h3>
+        <p>{{ teacher.department }}</p>
+    </div>
+</div>
+  <br></br>
+
+        <a href="#" class="active">🏠 Dashboard</a>
+        <a href="#">📝 Create Examination</a>
+        <a href="#">📚 Manage Questions</a>
+        <a href="#">📋 Examination List</a>
+        <a href="#">👨‍🎓 Student Submissions</a>
+        <a href="#">✍️ Evaluate Answers</a>
+        <a href="#">📊 Publish Results</a>
+        <a href="#">👤 My Profile</a>
+        <a href="{% url 'logout' %}">🚪 Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <!-- Topbar -->
+        <div class="topbar">
+            <h2>Teacher Dashboard</h2>
+            <div class="profile">
+                Welcome, {{ teacher.name }}
+            </div>
+        </div>
+        
+
+        <!-- Welcome Banner -->
+        <div class="welcome">
+            <h2>Welcome, {{ teacher.name }} 👋</h2>
+            <p>Manage your examinations, questions and student evaluations.</p>
+        </div>
+
+        <!-- Overview -->
+        <h2 class="section-title">Overview</h2>
+
+        <div class="stats">
+
+            <div class="stat-card">
+                <div class="icon">📝</div>
+                <h3>Total Examinations</h3>
+                <h2>{{ total_exams|default:"0" }}</h2>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">📚</div>
+                <h3>Total Questions</h3>
+                <h2>{{ total_questions|default:"0" }}</h2>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">📋</div>
+                <h3>Pending Evaluations</h3>
+                <h2>{{ pending_evaluations|default:"0" }}</h2>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">📊</div>
+                <h3>Published Results</h3>
+                <h2>{{ published_results|default:"0" }}</h2>
+            </div>
+
+        </div>
+
+        <!-- Examination Management -->
+        <h2 class="section-title">Examination Management</h2>
+
+        <div class="management">
+
+            <div class="manage-card">
+                <div class="icon">📝</div>
+                <h3>Create Examination</h3>
+                <p>Create new examinations by selecting subject, duration and exam details.</p>
+                <a href="#">Create Exam</a>
+            </div>
+
+            <div class="manage-card">
+                <div class="icon">📚</div>
+                <h3>Manage Questions</h3>
+                <p>Add MCQ and descriptive questions with marks and correct answers.</p>
+                <a href="#">Manage Questions</a>
+            </div>
+
+            <div class="manage-card">
+                <div class="icon">📋</div>
+                <h3>Examination List</h3>
+                <p>View and manage examinations created by you.</p>
+                <a href="#">View Exams</a>
+            </div>
+
+            <div class="manage-card">
+                <div class="icon">👨‍🎓</div>
+                <h3>Student Submissions</h3>
+                <p>View submitted examination answers from students.</p>
+                <a href="#">View Submissions</a>
+            </div>
+
+            <div class="manage-card">
+                <div class="icon">✍️</div>
+                <h3>Evaluate Answers</h3>
+                <p>Review suggested marks for descriptive answers and modify them when needed.</p>
+                <a href="#">Evaluate Answers</a>
+            </div>
+
+            <div class="manage-card">
+                <div class="icon">📊</div>
+                <h3>Publish Results</h3>
+                <p>Publish final marks after completing the evaluation process.</p>
+                <a href="#">View Results</a>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            © 2026 Web Based Examination and Evaluation System
+        </div>
+
+    </div>
+
+</body>
+</html>

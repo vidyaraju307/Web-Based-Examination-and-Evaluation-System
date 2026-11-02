@@ -19,5 +19,12 @@ from django.urls import path
 from .import views
 urlpatterns = [
        path('login/',views.admin_login,name='adminlogin'),
-       path('dash/',views.admin_dashboard,name='admindash')
+       path('dash/',views.admin_dashboard,name='admindash'),
+       path('addtr/',views.add_teacher,name='addtr'),
+       path('viewtr/',views.view_teacher,name='viewtr'),
+       path('edittr/<int:id>/',views.edit_teacher,name='edittr'),
+       path('deletetr/<int:id>/',views.delete_teacher,name='deletetr'),
+       path('viewstd/',views.view_student,name='viewstd'),
+       path('editstd/<int:id>/',views.edit_student,name='editstd'),
+       path('deletestd/<int:id>/',views.delete_student,name='deletestd'),
 ]
